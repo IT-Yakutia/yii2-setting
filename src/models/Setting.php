@@ -23,7 +23,7 @@ class Setting extends ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'value'], 'required'],
+            [['title', 'value', 'key'], 'required'],
             [['status', 'created_at', 'updated_at'], 'integer'],
             [['title', 'value'], 'string', 'max' => 255],
             [['title'], 'unique'],
@@ -46,6 +46,14 @@ class Setting extends ActiveRecord
     public static function valueOf($key)
     {
         $setting = self::find()->where(['key' => $key])->one();
-        return $setting !== null ? $setting->value : null;
+        if( $setting === null ){
+            $setting = new self();
+            $setting->key = $key;
+            $setting->value = $key;
+            $setting->title = $key;
+            if(!$setting->save())
+                return $setting->errors;
+        }
+        return $setting->value;
     }
 }

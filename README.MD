@@ -53,8 +53,4 @@ Add urls in your backend project:
 Url::toRoute('/setting/back/index');
 ```
 
-Add RBAC roles:
-
-```
-setting
-```
+Check permission `settings` that it are added to your RBAC role
