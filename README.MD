@@ -54,3 +54,13 @@ Url::toRoute('/setting/back/index');
 ```
 
 Check permission `settings` that it are added to your RBAC role
+
+Use in front:
+
+```php
+<span><a href="<?= Setting::valueOf('social_link_vk'); ?>"><i class="fab fa-vk"></i></a></span>
+```
+or
+```php
+<?= Setting::valueOf('social_link_vk', '<span><a href="[[value]]"><i class="fab fa-vk"></i></a></span>'); ?>
+```
