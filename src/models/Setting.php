@@ -24,7 +24,7 @@ class Setting extends ActiveRecord
     {
         return [
             [['title', 'value', 'key'], 'required'],
-            [['status', 'created_at', 'updated_at'], 'integer'],
+            [['status', 'created_at', 'updated_at', 'is_publish'], 'integer'],
             [['title', 'value'], 'string', 'max' => 255],
             [['title'], 'unique'],
         ];
@@ -34,16 +34,17 @@ class Setting extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'key' => 'Key',
-            'title' => 'Title',
-            'value' => 'Value',
+            'key' => 'Ключ',
+            'title' => 'Название',
+            'value' => 'Значение',
             'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => 'Создан',
+            'updated_at' => 'Изменен',
+            'is_publish' => 'Опубликовать',
         ];
     }
 
-    public static function valueOf($key)
+    public static function valueOf($key, $template = '')
     {
         $setting = self::find()->where(['key' => $key])->one();
         if( $setting === null ){
@@ -54,6 +55,20 @@ class Setting extends ActiveRecord
             if(!$setting->save())
                 return $setting->errors;
         }
-        return $setting->value;
+        if(empty($template))
+            return $setting->value;
+        else{
+            if($setting->is_publish)
+                return self::mb_str_replace('[[value]]', $setting->value, $template);
+        }
+    }
+
+    public static function mb_str_replace($search, $replace, $string)
+    {
+        $charset = mb_detect_encoding($string);
+
+        $unicodeString = iconv($charset, "UTF-8", $string);
+        
+        return str_replace($search, $replace, $unicodeString);
     }
 }

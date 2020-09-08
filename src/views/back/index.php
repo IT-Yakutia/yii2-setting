@@ -36,6 +36,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     'title',
                     'value',
+                    [
+                        'attribute' => 'is_publish',
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return $model->is_publish ? '<i class="material-icons green-text">done</i>' : '<i class="material-icons red-text">clear</i>';
+                        },
+                        'filter' => [0 => 'Нет', 1 => 'Да'],
+                    ],
                 ],
                 'pager' => [
                     'class' => 'yii\widgets\LinkPager',

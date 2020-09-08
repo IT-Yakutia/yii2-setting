@@ -1,5 +1,6 @@
 <?php
 
+use uraankhayayaal\materializecomponents\checkbox\WCheckbox;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -13,6 +14,12 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin([
         'errorCssClass' => 'red-text',
     ]); ?>
+
+    <div class="row">
+        <div class="col s12 m6">
+            <?= WCheckbox::widget(['model' => $model, 'attribute' => 'is_publish']); ?>
+        </div>
+    </div>
 
     <?= $form->field($model, 'key')->textInput(['maxlength' => true, 'disabled' => 'disabled']) ?>
 
