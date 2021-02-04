@@ -25,7 +25,8 @@ class m200623_004419_add_role extends Migration
     {
         $auth = Yii::$app->authManager;
         $settingRedactor = $auth->getPermission('settings');
-        $auth->remove($settingRedactor);
+        if($settingRedactor != null || $settingRedactor != false)
+            $auth->remove($settingRedactor);
         
     }
 }
