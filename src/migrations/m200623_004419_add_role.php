@@ -11,10 +11,12 @@ class m200623_004419_add_role extends Migration
     {
         $auth = Yii::$app->authManager;
 
-        $settingRedactor = $auth->createPermission('settings');
-        $settingRedactor->description = 'Редактирование настроек';
-
-        $auth->add($settingRedactor);
+        $settingRedactor = $auth->getPermission('settings');
+        if($settingRedactor != null || $settingRedactor != false){
+            $settingRedactor = $auth->createPermission('settings');
+            $settingRedactor->description = 'Редактирование настроек';
+            $auth->add($settingRedactor);
+        }
 
         $operator = $auth->getRole('operator');
         if($operator != null || $operator != false)
