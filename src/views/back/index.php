@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col s12">
             <p>
-                <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success disabled']) ?>
+                <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
             </p>
 
             <?= GridView::widget([

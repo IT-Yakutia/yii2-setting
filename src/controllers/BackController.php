@@ -26,7 +26,7 @@ class BackController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['settings']
+                        'permissions' => ['settings']
                     ]
                 ],
             ]
@@ -42,6 +42,19 @@ class BackController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionCreate()
+    {
+        $model = new Setting();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(Url::previous());
+        }
+
+        return $this->render('update', [
+            'model' => $model,
         ]);
     }
 

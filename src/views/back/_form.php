@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 
-    <?= $form->field($model, 'key')->textInput(['maxlength' => true, 'disabled' => 'disabled']) ?>
+    <?= $form->field($model, 'key')->textInput(['maxlength' => true] + ($model->getIsNewRecord() ? [] : ['disabled' => 'disabled'])) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
