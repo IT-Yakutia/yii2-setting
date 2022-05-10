@@ -26,7 +26,7 @@ class Setting extends ActiveRecord
             [['title', 'value', 'key'], 'required'],
             [['status', 'created_at', 'updated_at', 'is_publish'], 'integer'],
             [['title', 'value'], 'string', 'max' => 255],
-            [['title'], 'unique'],
+            [['key', 'title'], 'unique'],
         ];
     }
 

@@ -8,42 +8,49 @@ Installation
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
 Either run
-
-```
+```shell
 php composer.phar require --prefer-dist it-yakutia/yii2-setting "*"
 ```
-
 or add
-
-```
+```json lines
 "it-yakutia/yii2-setting": "*"
 ```
-
 to the require section of your `composer.json` file.
 
+Add Module in backend config `main.php`:
+```php
+return [
+    ...
+    'modules' => [
+        ...
+        'setting' => \ityakutia\setting\Module::class,
+        ...
+    ],
+    ...
+];
+```
 
-Usage
------
-
-Once the extension is installed, simply add in your console config:
+In console config `main.php` add `migrationPath` value in `controllerMap` `migration` section:
 
 ```php
-'controllerMap' => [
-    /* ... */
-    'migrate' => [
-            // 'class' => 'yii\console\controllers\MigrateController',
-            'migrationPath' => [
-                // '@console/migrations', // yii migrate/create app_init
-                // '@yii/rbac/migrations',
-                /* ... */
-                '@vendor/it-yakutia/yii2-setting/src/migrations'
-            ],
+return [
+    ...
+    'controllerMap' => [
+        ...
+	    'migrate' => [
+		    'class' => \yii\console\controllers\MigrateController::class,
+		    'migrationPath' => [
+				'@console/migrations',
+				...
+			    '@ityakutia/setting/migrations',
+			    ...
+		    ],
+	    ],
     ],
-],
 ```
 
 And just run the command:
-```
+```shell
 php yii migrate
 ```
 
@@ -54,6 +61,9 @@ Url::toRoute('/setting/back/index');
 ```
 
 Check permission `settings` that it are added to your RBAC role
+
+Usage
+-----
 
 Use in front:
 
